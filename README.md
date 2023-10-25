@@ -1,5 +1,5 @@
 # FullStack Social Media App
-Complete React MERN Full Stack Social Media App
+Complete React MERN Full Stack Social Media App. 
 
 # Introduction
 This is social media web app. 
