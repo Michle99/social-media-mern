@@ -64,7 +64,7 @@ const Form = () => {
     formData.append("picturePath", values.picture.name);
 
     const savedUserResponse = await fetch(
-      "https://mern-social-media-server.onrender.com/auth/register",
+      "http://localhost:6001/auth/register",
       {
         method: "POST",
         body: formData,
@@ -79,23 +79,32 @@ const Form = () => {
   };
 
   const login = async (values, onSubmitProps) => {
-    const loggedInResponse = await fetch("https://mern-social-media-server.onrender.com/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(values),
-    });
-    const loggedIn = await loggedInResponse.json();
-    onSubmitProps.resetForm();
-    if (loggedIn) {
-      dispatch(
-        setLogin({
-          user: loggedIn.user,
-          token: loggedIn.token,
-        })
-      );
-      navigate("/home");
+    try {
+      const loggedInResponse = await fetch("http://localhost:6001/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+      });
+  
+      if (loggedInResponse.status === 200) {
+        const loggedIn = await loggedInResponse.json();
+        onSubmitProps.resetForm();
+        if (loggedIn) {
+          dispatch(
+            setLogin({
+              user: loggedIn.user,
+              token: loggedIn.token,
+            })
+          );
+          navigate("/home");
+        }
+      } else {
+        console.error("Server returned an error: " + loggedInResponse.status);
+      }
+    } catch (error) {
+      console.error("An error occurred while making the request: " + error.message);
     }
-  };
+  };  
 
   const handleFormSubmit = async (values, onSubmitProps) => {
     if (isLogin) await login(values, onSubmitProps);
