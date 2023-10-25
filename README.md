@@ -14,6 +14,8 @@ The concepts covered in this app are:
 - Client
 - Server
 
+# Screenshots
+<img src="./client/public/assets/ss_0.png" alt="Social Media Mern" width="90%"> 
 
 # Credits
 [Ed Roh](https://github.com/ed-roh)
